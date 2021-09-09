@@ -1,28 +1,29 @@
-import React ,{useContext} from 'react'
-import Teacher from './TeacherPortal'
-import Context from '../Store/Context'
-import SlotDetails from './SlotDetails'
+import { connect } from 'react-redux'
+import './StudentPortal.css'
 
-const StudentPortal = () => {
-    const ctx=useContext(Context);
-    console.log(ctx);
-
-    
-
-
+const StudentPortal = ({availability}) => {
     return (
         <div>
-            {/* {
-                details.map((slot)=>{
-                   return <SlotDetails day={slot.day} time={slot.time} status={slot.status}/>
-                   
-                    
-
-                })
-                
-            } */}
+            <div className="teach_stat_box">
+                <h3>Day</h3>
+                <h3>Time</h3>
+                <h3>Status</h3>
+            </div>
+            {availability.map(({day, time, status}, index)=>
+                <div key={index} className="teach_stat_box">
+                    <p>{day}</p>
+                    <p>{time}</p>
+                    <p>{status}</p>   
+                </div>
+            )}
         </div>
     )
-}
+} 
 
-export default StudentPortal
+const mapStateToProps = state => {
+    return { availability: state.availability };
+};
+
+const ExStudentPortal = connect(mapStateToProps)(StudentPortal);
+
+export default ExStudentPortal;

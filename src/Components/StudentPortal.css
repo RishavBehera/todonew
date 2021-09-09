@@ -1,0 +1,11 @@
+.teach_stat_box{
+    display:flex
+}
+
+.teach_stat_box h3:not(:first-child){
+    margin-left:2.4rem; 
+}
+
+.teach_stat_box p:not(:first-child){
+    margin-left:1.2rem;
+}

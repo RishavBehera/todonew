@@ -1,23 +1,22 @@
-import React, {useState} from 'react'
-import StudentPortal from './StudentPortal';
-import Context from '../Store/Context'
+import React, {useState,useEffect,useMemo} from 'react'
+import { addAvailStatus } from '../Actions/tAction';
+import { connect } from 'react-redux';
 
-const TeacherPortal = (props) => {
+
+const TeacherPortal = ({addAvailStatus, storeAvail}) => {
     const [day,setDay]=useState('');
     const [time,setTime]=useState('');
-    const [availability,setAvailability]=useState([{
-        day:'Mon',
-        time:'10.30-11.30',
-        status:'free-slot'
-    },  
-    {
-        day:'Tue',
-        time:'1.30-11.30',
-        status:'free-slot'
-    }  
-     
-]);
-console.log(availability);
+    const [availability,setAvailability]=useState([]);
+
+    useMemo(()=>{
+        setAvailability(storeAvail);
+    },[storeAvail])
+
+    useEffect(()=>{
+       addAvailStatus(availability); 
+    },[availability, addAvailStatus])
+    
+
 const dayHandler=(e)=>{
     setDay(e.target.value);
 
@@ -27,21 +26,15 @@ const timeHandler=(e)=>{
 
 }
 const onAddHandler = () => {
-    setAvailability((prevdata)=>{
-        return [...prevdata,{
-            day:day,
-            time:time,
-            status:'Free-slot'
-        }]
-    })
+    setAvailability([...availability, {day, time, status:'Free-slot'}])
     setDay('');
     setTime('');
 }
     return (
         
            
-            <Context.Provider value={availability
-            }>
+        // <Context.Provider value={availability}>
+        <div>
             <input list="dayselect" value={day} onChange={dayHandler}/>
             <datalist id="dayselect">
                 <option value="Mon"/>
@@ -63,12 +56,26 @@ const onAddHandler = () => {
             </datalist>
         
             <button type="button" onClick={onAddHandler}>Add Slot</button>
-            </Context.Provider>
-            
-        
-        
-
+            </div>
+        // </Context.Provider>
     )
 }
 
-export default TeacherPortal
+const mapStateToProps = state => {
+    return { storeAvail: state.availability };
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+      addAvailStatus: payload => dispatch(addAvailStatus(payload))
+    };
+  }
+
+
+  const ExTeacherPortal = connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TeacherPortal);
+  
+
+export default ExTeacherPortal
