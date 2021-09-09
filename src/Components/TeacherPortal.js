@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 
 const TeacherPortal = ({addAvailStatus, storeAvail}) => {
+    const [id, setID] = useState(storeAvail.length + 1);
     const [day,setDay]=useState('');
     const [time,setTime]=useState('');
     const [availability,setAvailability]=useState([]);
@@ -17,25 +18,30 @@ const TeacherPortal = ({addAvailStatus, storeAvail}) => {
     },[availability, addAvailStatus])
     
 
-const dayHandler=(e)=>{
-    setDay(e.target.value);
+    const dayHandler=(e)=>{
+        setDay(e.target.value);
 
-}
-const timeHandler=(e)=>{
-    setTime(e.target.value);
+    }
+    const timeHandler=(e)=>{
+        setTime(e.target.value);
+    }
+    
+    const idHandler = (e)=> {
+        const tID = parseInt(e.target.value);
+        setID(tID);
+    }
 
-}
-const onAddHandler = () => {
-    setAvailability([...availability, {day, time, status:'Free-slot'}])
-    setDay('');
-    setTime('');
-}
+    const onAddHandler = () => {
+        setAvailability([...availability, {id, day, time, status:true}])
+        setDay('');
+        setTime('');
+        setID(storeAvail.length + 2);
+    }
+    
     return (
-        
-           
-        // <Context.Provider value={availability}>
         <div>
-            <input list="dayselect" value={day} onChange={dayHandler}/>
+            <input type="text" value={id} placeholder="Enter ID" onChange={idHandler}/>
+            <input list="dayselect" value={day} onChange={dayHandler} placeholder="select day"/>
             <datalist id="dayselect">
                 <option value="Mon"/>
                 <option value="Tue"/>
@@ -45,7 +51,7 @@ const onAddHandler = () => {
                 <option value="Sat"/>
                 <option value="Sun"/>
             </datalist>
-            <input list="timeselect" value={time} onChange={timeHandler}/>
+            <input list="timeselect" value={time} onChange={timeHandler} placeholder="select time"/>
             <datalist id="timeselect">
         
                 <option value="10.30-11.30"/>

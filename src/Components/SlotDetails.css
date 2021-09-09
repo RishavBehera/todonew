@@ -1,0 +1,12 @@
+.teach_stat_box{
+    display:flex;
+    align-items: center;
+}
+
+.teach_stat_box button{
+    margin-left: 1rem;
+    display: inline-block;
+    width: 5rem;
+    height: 2rem;
+    cursor: pointer;
+}
