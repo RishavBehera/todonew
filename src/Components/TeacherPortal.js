@@ -1,19 +1,23 @@
 import React, {useState} from 'react'
 import StudentPortal from './StudentPortal';
 import Context from '../Store/Context'
+import SlotDetails from './SlotDetails'
 
 const TeacherPortal = (props) => {
     const [day,setDay]=useState('');
     const [time,setTime]=useState('');
+    const [buttonText,setButtonText]=useState('Book');
     const [availability,setAvailability]=useState([{
         day:'Mon',
         time:'10.30-11.30',
-        status:'free-slot'
+        status:'free-slot',
+        id:'1'
     },  
     {
         day:'Tue',
         time:'1.30-11.30',
-        status:'free-slot'
+        status:'free-slot',
+        id:'2'
     }  
      
 ]);
@@ -31,11 +35,18 @@ const onAddHandler = () => {
         return [...prevdata,{
             day:day,
             time:time,
-            status:'Free-slot'
+            status:'Free-slot',
+            id:Math.random().toString()
         }]
     })
     setDay('');
     setTime('');
+}
+const clickHandler=(val)=>{
+    if(val===true){
+        setButtonText('Booked');
+    }
+   
 }
     return (
         
@@ -63,6 +74,14 @@ const onAddHandler = () => {
             </datalist>
         
             <button type="button" onClick={onAddHandler}>Add Slot</button>
+
+            {
+              availability.map((item)=>{
+                   return (
+                      <SlotDetails key={item.id} id={item.id} day={item.day} time={item.time} status={item.status} text={buttonText} onClick={clickHandler}/>
+                   )
+              })
+            }
             </Context.Provider>
             
         

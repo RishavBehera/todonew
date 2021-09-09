@@ -1,26 +1,24 @@
-import React ,{useContext} from 'react'
-import Teacher from './TeacherPortal'
+import React ,{useContext,useState} from 'react'
+import TeacherPortal from './TeacherPortal'
 import Context from '../Store/Context'
 import SlotDetails from './SlotDetails'
 
 const StudentPortal = () => {
     const ctx=useContext(Context);
+    const [click,setClick]=useState(false);
     console.log(ctx);
+    const clickHandler=()=>{
+        setClick(true);
+        return click;
+
+    }
 
     
 
 
     return (
         <div>
-            {/* {
-                details.map((slot)=>{
-                   return <SlotDetails day={slot.day} time={slot.time} status={slot.status}/>
-                   
-                    
-
-                })
-                
-            } */}
+            <TeacherPortal onClick={clickHandler}/>
         </div>
     )
 }
