@@ -1,7 +1,12 @@
 import { connect } from 'react-redux'
+import { bookslot } from '../Actions/tAction'
 import './StudentPortal.css'
 
-const StudentPortal = ({availability}) => {
+const StudentPortal = ({availability,findIndex}) => {
+    const bookSlot=()=>{
+        const index=0;
+        bookslot(index);
+    }
     return (
         <div>
             <div className="teach_stat_box">
@@ -16,6 +21,7 @@ const StudentPortal = ({availability}) => {
                     <p>{status}</p>   
                 </div>
             )}
+            <button type="button" onClick={bookSlot}>BOOK</button>
         </div>
     )
 } 
@@ -23,7 +29,11 @@ const StudentPortal = ({availability}) => {
 const mapStateToProps = state => {
     return { availability: state.availability };
 };
+const mapDispatchToProps = dispatch => {
+    return {bookslot:payload => dispatch(bookslot(payload))};
 
-const ExStudentPortal = connect(mapStateToProps)(StudentPortal);
+}
+
+const ExStudentPortal = connect(mapStateToProps,mapDispatchToProps)(StudentPortal);
 
 export default ExStudentPortal;

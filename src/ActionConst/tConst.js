@@ -1,1 +1,2 @@
 export const ADD_AVAIL_STATUS = "ADD_AVAIL_STATUS"
+export const BOOK_SLOT="BOOK_SLOT"
