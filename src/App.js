@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route,Switch } from 'react-router-dom';
 import ExTeacherPortal from './Components/TeacherPortal';
 import ExStudentPortal from './Components/StudentPortal';
 import Welcome from './Components/Welcome';
@@ -16,9 +16,11 @@ const App = () => {
           <li><Link className="link" to="/student">Student</Link></li>
         </ul>
      </nav>
-
+     <Switch>
+     <Route path='/welcome' component={Welcome}/>
      <Route path="/teacher" component={ExTeacherPortal}/>
      <Route path="/student" component={ExStudentPortal}/>
+     </Switch>
     </div>
     </Router>
   );

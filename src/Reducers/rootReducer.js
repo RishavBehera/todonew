@@ -10,8 +10,10 @@ const rootReducer = (state = initialState, action) =>{
             return {availability:action.payload}
         case BOOK_SLOT:
             const avail=state.availability;
+            console.log(avail);
             // let updatedAvailabilityItem;
             avail.forEach((item,index)=>{
+                console.log(index);
                 if(index===action.payload){
                     item.status='BOOKED'
                 }
